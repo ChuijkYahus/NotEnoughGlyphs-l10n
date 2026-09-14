@@ -34,15 +34,19 @@ public class PropagateUnderfoot extends AbstractEffect implements IPropagator {
 
     @Override
     public String getBookDescription() {
-        return "Takes the remainder of the spell and cast it below the target.";
+        return "Takes the remainder of the spell and cast it on the block below the target. If the target is currently riding something then the vehicle becomes the target of the remainder of the spell.";
     }
 
     @Override
     public void propagate(Level world, HitResult result, LivingEntity shooter, SpellStats stats, SpellResolver resolver) {
-        if (result instanceof EntityHitResult entityHitResult)
-            resolver.onResolveEffect(world, new BlockHitResult(entityHitResult.getEntity().position(), Direction.DOWN, entityHitResult.getEntity().blockPosition().below(), true));
-        else if (result instanceof BlockHitResult blockHitResult)
-            resolver.onResolveEffect(world, new BlockHitResult(blockHitResult.getLocation(), blockHitResult.getDirection(), blockHitResult.getBlockPos().below(), blockHitResult.isInside()));
+        switch (result) {
+            case BlockHitResult blockHitResult ->
+                    resolver.onResolveEffect(world, new BlockHitResult(blockHitResult.getLocation(), blockHitResult.getDirection(), blockHitResult.getBlockPos().below(), blockHitResult.isInside()));
+            case EntityHitResult entityHitResult ->
+                    resolver.onResolveEffect(world, entityHitResult.getEntity() instanceof LivingEntity livingEntity && livingEntity.getVehicle() != null ? new EntityHitResult(livingEntity.getVehicle()) : new BlockHitResult(entityHitResult.getEntity().position(), Direction.DOWN, entityHitResult.getEntity().blockPosition().below(), true));
+            case null, default -> {
+            }
+        }
     }
 
     @Override
