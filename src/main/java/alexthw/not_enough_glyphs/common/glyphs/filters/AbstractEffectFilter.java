@@ -78,7 +78,7 @@ public abstract class AbstractEffectFilter extends AbstractFilter {
     }
 
     public boolean shouldResolveOnEntity(EntityHitResult target, Level level) {
-        return false;
+        return shouldResolveOnEntity(target,level, new SpellStats.Builder().build(),null,null);
     }
 
     @Override

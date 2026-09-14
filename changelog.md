@@ -1,3 +1,7 @@
+# Not Enough Glyphs 1.21.1 - 4.6.2
+* Hotfix for filter always blocking resolve on runes after API update
+* Updated Sauce to 0.0.50+
+
 # Not Enough Glyphs 1.21.1 - 4.6.0
 
 * Updated Sauce to 0.0.42 for Ars Nouveau 5.12+
