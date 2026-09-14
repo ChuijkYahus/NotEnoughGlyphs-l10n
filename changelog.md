@@ -1,5 +1,6 @@
 # Not Enough Glyphs 1.21.1 - 4.6.2
 * Hotfix for filter always blocking resolve on runes after API update
+* Propagate Underfoot can now target the vehicle of the entity it's resolving on
 * Updated Sauce to 0.0.50+
 
 # Not Enough Glyphs 1.21.1 - 4.6.0
